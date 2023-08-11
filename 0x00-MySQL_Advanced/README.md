@@ -183,6 +183,9 @@ INSERT INTO corrections (user_id, project_id, score) VALUES (@user_jeanne, @proj
 INSERT INTO corrections (user_id, project_id, score) VALUES (@user_jeanne, @project_py, 73);
 ```
 
++ [x] 8. **Optimize simple search**<br/>[8-index_my_names.sql](8-index_my_names.sql) contains a SQL script that creates an index `idx_name_first` on the table `names` and the first letter of `name`:
+  + Import this archived table dump: [names.7z](names.7z).
+  + Only the first letter of `name` must be indexed.
 
 
 
