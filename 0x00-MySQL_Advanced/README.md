@@ -32,7 +32,27 @@ This project contains tasks for learning advanced MySQL features.
   + You should use attributes `formed` and `split` for computing the `lifespan`.
   + Your script can be executed on any database.
 
++ [x] 4. **Buy buy buy**<br/>[4-store.sql](4-store.sql) contains a SQL script that creates a trigger that decreases the quantity of an item after adding a new order:
+  + Quantity in the table `items` can be negative.
+  + A dump of the database and relevant table(s) is shown below:
+```Mysql
+  -- Initial
+DROP TABLE IF EXISTS items;
+DROP TABLE IF EXISTS orders;
 
+CREATE TABLE IF NOT EXISTS items (
+  name VARCHAR(255) NOT NULL,
+  quantity int NOT NULL DEFAULT 10
+);
+
+CREATE TABLE IF NOT EXISTS orders (
+  item_name VARCHAR(255) NOT NULL,
+  number int NOT NULL
+);
+
+INSERT INTO items (name) VALUES ("apple"), ("pineapple"), ("pear");
+``` 
+  + **Context**: Updating multiple tables for one action from your application can generate issue: network disconnection, crash, etc… to keep your data in a good shape, let MySQL do it for you!
 
 
 
