@@ -187,9 +187,32 @@ INSERT INTO corrections (user_id, project_id, score) VALUES (@user_jeanne, @proj
   + Import this archived table dump: [names.7z](names.7z).
   + Only the first letter of `name` must be indexed.
 
++ [x] 9. **Optimize search and score**<br/>[9-index_name_score.sql](9-index_name_score.sql) contains a SQL script that creates an index `idx_name_first_score` on the table `names` and the first letter of `name` and the `score`:
+  + Import this archived table dump: [names.7z](names.7z).
+  + Only the first letter of name AND score must be indexed.
 
++ [x] 10. **Safe divide**<br/>[10-div.sql](10-div.sql) contains a SQL script that creates a function `SafeDiv` that divides (and returns) the first by the second number or returns 0 if the second number is equal to 0:
+  + The function `SafeDiv` takes 2 arguments:
+    + `a`, INT.
+    + `b`, INT.
+  + The function `SafeDiv` returns `a / b` or 0 if `b == 0`.
+  + A dump of the database and relevant table(s) is shown below:
+```Mysql
+-- Initial
+DROP TABLE IF EXISTS numbers;
 
+CREATE TABLE IF NOT EXISTS numbers (
+    a int default 0,
+    b int default 0
+);
 
+INSERT INTO numbers (a, b) VALUES (10, 2);
+INSERT INTO numbers (a, b) VALUES (4, 5);
+INSERT INTO numbers (a, b) VALUES (2, 3);
+INSERT INTO numbers (a, b) VALUES (6, 3);
+INSERT INTO numbers (a, b) VALUES (7, 0);
+INSERT INTO numbers (a, b) VALUES (6, 8);
+```
 
 
 
