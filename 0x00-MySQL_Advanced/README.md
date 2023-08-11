@@ -11,7 +11,7 @@ This project contains tasks for learning advanced MySQL features.
   + Your script can be executed on any database.
   + **Context:** Make an attribute unique directly in the table schema will enforced your business rules and avoid bugs in your application
      
-+ [ ] 1. **In and not out**<br/>[1-country_users.sql](1-country_users.sql) contains a SQL script that creates a table `users` following these requirements:
++ [x] 1. **In and not out**<br/>[1-country_users.sql](1-country_users.sql) contains a SQL script that creates a table `users` following these requirements:
   + With these attributes:
     + `id,` integer, never null, auto increment and primary key.
     + `email,` string (255 characters), never null and unique.
@@ -20,7 +20,7 @@ This project contains tasks for learning advanced MySQL features.
   + If the table already exists, your script should not fail.
   + Your script can be executed on any database.
 
-+ [ ] 2. **Best band ever!**<br/>[2-fans.sql](2-fans.sql) contains a SQL script that ranks country origins of bands, ordered by the number of (non-unique) fans.
++ [x] 2. **Best band ever!**<br/>[2-fans.sql](2-fans.sql) contains a SQL script that ranks country origins of bands, ordered by the number of (non-unique) fans.
   + Import this table dump: [metal_bands.sql](metal_bands.sql)
   + Column names must be: `origin` and `nb_fans.`
   + Your script can be executed on any database.
