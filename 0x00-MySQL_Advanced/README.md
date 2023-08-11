@@ -214,11 +214,136 @@ INSERT INTO numbers (a, b) VALUES (7, 0);
 INSERT INTO numbers (a, b) VALUES (6, 8);
 ```
 
++ [x] 11. **No table for a meeting**<br/>[11-need_meeting.sql](11-need_meeting.sql) contains a SQL script that creates a view `need_meeting` that lists all students that have a score under 80 (strict) and no `last_meeting` or more than 1 month.
+  + The view `need_meeting` should return all students name when:
+    + They score are under (strict) to 80.
+    + **AND** no last_meeting date **OR** more than a month.
+  + A dump of the database and relevant table(s) is shown below:
+```Mysql
+-- Initial
+-- Initial
+DROP TABLE IF EXISTS students;
+
+CREATE TABLE IF NOT EXISTS students (
+  name VARCHAR(255) NOT NULL,
+  score INT default 0,
+  last_meeting DATE NULL
+);
+
+INSERT INTO students (name, score) VALUES ("Bob", 80);
+INSERT INTO students (name, score) VALUES ("Sylvia", 120);
+INSERT INTO students (name, score) VALUES ("Jean", 60);
+INSERT INTO students (name, score) VALUES ("Steeve", 50);
+INSERT INTO students (name, score) VALUES ("Camilia", 80);
+INSERT INTO students (name, score) VALUES ("Alexa", 130);
+```
+
++ [x] 12. **Average weighted score**<br/>[100-average_weighted_score.sql](100-average_weighted_score.sql)  contains a SQL script that creates a stored procedure `ComputeAverageWeightedScoreForUser` that computes and stores the [average weighted score](https://www.wikihow.com/Calculate-Weighted-Average) for a student:
+  + The procedure `ComputeAverageScoreForUser` takes 1 input:
+    + `user_id`, a `users.id` value (you can assume `user_id` is linked to an existing `users`).
+  + A dump of the database and relevant table(s) is shown below:
+```Mysql
+-- Initial
+DROP TABLE IF EXISTS corrections;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS projects;
+
+CREATE TABLE IF NOT EXISTS users (
+  id int not null AUTO_INCREMENT,
+  name varchar(255) not null,
+  average_score float default 0,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS projects (
+  id int not null AUTO_INCREMENT,
+  name varchar(255) not null,
+  weight int default 1,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS corrections (
+  user_id int not null,
+  project_id int not null,
+  score float default 0,
+  KEY `user_id` (`user_id`),
+  KEY `project_id` (`project_id`),
+  CONSTRAINT fk_user_id FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT fk_project_id FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE
+);
+
+INSERT INTO users (name) VALUES ("Bob");
+SET @user_bob = LAST_INSERT_ID();
+
+INSERT INTO users (name) VALUES ("Jeanne");
+SET @user_jeanne = LAST_INSERT_ID();
+
+INSERT INTO projects (name, weight) VALUES ("C is fun", 1);
+SET @project_c = LAST_INSERT_ID();
+
+INSERT INTO projects (name, weight) VALUES ("Python is cool", 2);
+SET @project_py = LAST_INSERT_ID();
 
 
+INSERT INTO corrections (user_id, project_id, score) VALUES (@user_bob, @project_c, 80);
+INSERT INTO corrections (user_id, project_id, score) VALUES (@user_bob, @project_py, 96);
+
+INSERT INTO corrections (user_id, project_id, score) VALUES (@user_jeanne, @project_c, 91);
+INSERT INTO corrections (user_id, project_id, score) VALUES (@user_jeanne, @project_py, 73);
+```
+
++ [x] 13. **Average weighted score for all!**<br/>[101-average_weighted_score.sql](101-average_weighted_score.sql)  contains a SQL script that creates a stored procedure `ComputeAverageWeightedScoreForUsers` that computes and store the [average weighted score](https://www.wikihow.com/Calculate-Weighted-Average) for a student:
+  + The procedure `ComputeAverageWeightedScoreForUsers` takes no input.
+  + A dump of the database and relevant table(s) is shown below:
+```Mysql
+-- Initial
+DROP TABLE IF EXISTS corrections;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS projects;
+
+CREATE TABLE IF NOT EXISTS users (
+  id int not null AUTO_INCREMENT,
+  name varchar(255) not null,
+  average_score float default 0,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS projects (
+  id int not null AUTO_INCREMENT,
+  name varchar(255) not null,
+  weight int default 1,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS corrections (
+  user_id int not null,
+  project_id int not null,
+  score float default 0,
+  KEY `user_id` (`user_id`),
+  KEY `project_id` (`project_id`),
+  CONSTRAINT fk_user_id FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT fk_project_id FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE
+);
+
+INSERT INTO users (name) VALUES ("Bob");
+SET @user_bob = LAST_INSERT_ID();
+
+INSERT INTO users (name) VALUES ("Jeanne");
+SET @user_jeanne = LAST_INSERT_ID();
+
+INSERT INTO projects (name, weight) VALUES ("C is fun", 1);
+SET @project_c = LAST_INSERT_ID();
+
+INSERT INTO projects (name, weight) VALUES ("Python is cool", 2);
+SET @project_py = LAST_INSERT_ID();
 
 
+INSERT INTO corrections (user_id, project_id, score) VALUES (@user_bob, @project_c, 80);
+INSERT INTO corrections (user_id, project_id, score) VALUES (@user_bob, @project_py, 96);
 
+INSERT INTO corrections (user_id, project_id, score) VALUES (@user_jeanne, @project_c, 91);
+INSERT INTO corrections (user_id, project_id, score) VALUES (@user_jeanne, @project_py, 73);
+```
 
 
 
