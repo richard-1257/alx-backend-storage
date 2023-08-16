@@ -37,3 +37,61 @@ for value, fn in TEST_CASES.items():
   + **Protip**: when defining a decorator it is useful to use `functool.wraps` to conserve the original function’s name, docstring, etc. Make sure you use it as described [here](https://docs.python.org/3.7/library/functools.html#functools.wraps).
   + Decorate `Cache.store` with `count_calls`.
 
++ [x] 3. **Storing lists**<br/>[exercise.py](exercise.py): contains a Python script with the following updates to the previous task:
+  + Familiarize yourself with redis commands `RPUSH`, `LPUSH`, `LRANGE`, etc.
+  + In this task, we will define a `call_history` decorator to store the history of inputs and outputs for a particular function.
+  + Everytime the original function will be called, we will add its input parameters to one list in redis, and store its output into another list.
+  + In `call_history`, use the decorated function’s qualified name and append `":inputs"` and `":outputs"` to create input and output list keys, respectively.
+  + `call_history` has a single parameter named `method` that is a `Callable` and returns a `Callable`.
+  + In the new function that the decorator will return, use `rpush` to append the input arguments. Remember that Redis can only store strings, bytes and numbers. Therefore, we can simply use `str(args)` to normalize. We can ignore potential `kwargs` for now.
+  + Execute the wrapped function to retrieve the output. Store the output using `rpush` in the `"...:outputs"` list, then return the output.
+  + Decorate `Cache.store` with `call_history`.
+
++ [x] 4. **Retrieving lists**<br/>[exercise.py](exercise.py): contains a Python script with the following updates to the previous task:
+  + In this task, we will implement a `replay` function to display the history of calls of a particular function.
+  + The output generated should look like this:
+```python
+>>> cache = Cache()
+>>> cache.store("foo")
+>>> cache.store("bar")
+>>> cache.store(42)
+>>> replay(cache.store)
+Cache.store was called 3 times:
+Cache.store(*('foo',)) -> 13bf32a9-a249-4664-95fc-b1062db2038f
+Cache.store(*('bar',)) -> dcddd00c-4219-4dd7-8877-66afbe8e7df8
+Cache.store(*(42,)) -> 5e752f2b-ecd8-4925-a3ce-e2efdee08d20
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
