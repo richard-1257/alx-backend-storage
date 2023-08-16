@@ -1,3 +1,5 @@
+![redis](https://github.com/richard-1257/alx-backend-storage/assets/83041703/bb311870-1ff5-4c01-9a9e-338fff4498fd)
+
 # Redis basic
 This project contains tasks for learning to use the Redis NoSQL data storage application through Python3.
 
