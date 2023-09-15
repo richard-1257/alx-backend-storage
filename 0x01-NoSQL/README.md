@@ -93,4 +93,3 @@ This project contains tasks for learning to use the MongoDB NoSQL database appli
 
 + [x] 15. **Log stats - new version**<br/>[102-log_stats.py](102-log_stats.py) improves [12-log_stats.py](12-log_stats.py) by adding the top 10 of the most present IPs in the collection `nginx` of the database `logs`:
   + The top 10 IPs must be sorted.
-root@0e9ea898d087:/alx-backend-storage/0x01-NoSQL#
